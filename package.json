@@ -13,7 +13,8 @@
     "singleQuote": true
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "lokijs": "^1.5.12"
   },
   "devDependencies": {
     "chai": "^4.3.7",
