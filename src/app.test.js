@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('POST /tokenize', () => {
-  it('should tokenize account numbers', async () => {
+  it('should return correct tokens', async () => {
     const accountNumbers = [
       '4111-1111-1111-1111',
       '4444-3333-2222-1111',
@@ -49,5 +49,22 @@ describe('POST /detokenize', () => {
 
     expect(detokenizeRes).to.have.status(200);
     expect(detokenizeRes.body).to.deep.equal(accountNumbers);
+  });
+
+  it('should return nulls for invalid tokens', async () => {
+    const invalidTokens = [
+      '5555-1111-1111-1111',
+      '6666-3333-2222-1111',
+      '7777-1111-2222-3333',
+    ];
+    const expectedResult = [null, null, null];
+
+    const detokenizeRes = await chai
+      .request(app)
+      .post('/detokenize')
+      .send(invalidTokens);
+
+    expect(detokenizeRes).to.have.status(200);
+    expect(detokenizeRes.body).to.deep.equal(expectedResult);
   });
 });
