@@ -12,10 +12,16 @@ describe('POST /tokenize', () => {
       '4444-3333-2222-1111',
       '4444-1111-2222-3333',
     ];
+    const expectedBody = [
+      'b3f846b293cec081f0740bdaaecbea387754943b9e2ff6d83b8b459d1bbb43ac',
+      '0f7dc9af51859b2b3f85150755d4296e36d5b7881bbba9120260e20cefc88b52',
+      '9125724ec8da8f2b1c4d4cb487c23af2e60df6529cc4851bdf8bbd85bc65f709',
+    ];
+
     const res = await chai.request(app).post('/tokenize').send(accountNumbers);
 
     expect(res).to.have.status(200);
-    expect(res.body).to.have.lengthOf(accountNumbers.length);
+    expect(res.body).to.deep.equal(expectedBody);
   });
 });
 
