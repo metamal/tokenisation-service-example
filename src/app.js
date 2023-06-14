@@ -3,8 +3,19 @@ const express = require('express');
 // Create a new express app
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+// Use express's built-in JSON parser
+app.use(express.json());
+
+app.post('/tokenize', (req, res) => {
+  const accountNumbers = req.body;
+  const result = [...accountNumbers];
+  res.json(result);
+});
+
+app.post('/detokenize', (req, res) => {
+  const inputTokens = req.body;
+  const result = [...inputTokens];
+  res.json(result);
 });
 
 // Start the server
